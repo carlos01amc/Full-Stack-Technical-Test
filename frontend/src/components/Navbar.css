@@ -1,0 +1,61 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #45108a; /* Background color for the navbar */
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+
+.user-icon {
+    cursor: pointer;
+}
+
+.link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.logout-button {
+    margin-left: 20px;
+    padding: 8px 16px; /* Add padding for better button shape */
+    color: #f1f1f1; /* Red color for the logout button */
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 4px; /* Rounded edges */
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
+}
+
+.logout-button:hover {
+    background-color: #ffffff; /* Red background on hover */
+    color: #45108a; /* White text on hover */
+    text-decoration: none; /* No underline */
+}
+
+.dashboard-button {
+    margin-left: 20px;
+    padding: 8px 16px;
+    color: #fff; /* Set text color to white */
+    background-color: transparent;
+    border: 1px solid #fff; /* White border */
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dashboard-button:hover {
+    background-color: #fff; /* White background on hover */
+    color: #45108a; /* Change text to the navbar background color */
+    text-decoration: none;
+}
