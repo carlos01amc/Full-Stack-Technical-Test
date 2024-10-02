@@ -16,9 +16,9 @@ const Login = ({ setIsLoggedIn }) => {
                 email,
                 password,
             });
-            localStorage.setItem('token', response.data.token); 
-            setIsLoggedIn(true);
-            navigate('/user');
+            localStorage.setItem('token', response.data.token); // Save token in local storage
+            setIsLoggedIn(true); // Update login state
+            navigate('/user'); // Redirect to UserDashboard
         } catch (error) {
             setMessage(error.response.data.message);
         }

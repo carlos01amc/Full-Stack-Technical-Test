@@ -3,15 +3,27 @@ import { Link } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa'; 
 import './Navbar.css'; 
 
-const Navbar = () => {
+const Navbar = ({ setIsLoggedIn, isLoggedIn }) => {
+    const handleLogout = () => {
+        localStorage.removeItem('token'); 
+        setIsLoggedIn(false); 
+    };
+
     return (
         <nav className="navbar">
             <Link to="/" className="logo">Smartex</Link>
-            <div className="user-icon">
-                <Link to="/login" className="link">
-                    <FaUser size={24} />
-                </Link>
-            </div>
+            {isLoggedIn ? (  
+                <div>
+                    <Link to="/user" className="dashboard-button">User Dashboard</Link>
+                    <Link to="/" onClick={handleLogout} className="logout-button">Logout</Link>
+                </div>
+            ) : (
+                <div className="user-icon">
+                    <Link to="/login" className="link">
+                        <FaUser size={24} />
+                    </Link>
+                </div>
+            )}
         </nav>
     );
 };

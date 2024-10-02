@@ -24,3 +24,23 @@
     color: #fff; 
     text-decoration: none; 
 }
+
+.logout-button {
+    margin-left: 20px; /* Add some spacing */
+    color: #ff4757; /* Change color to red */
+    text-decoration: none; /* Remove underline */
+}
+
+.logout-button:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.dashboard-button {
+    margin-left: 20px; /* Add some spacing */
+    color: #2ecc71; /* Change color to green */
+    text-decoration: none; /* Remove underline */
+}
+
+.dashboard-button:hover {
+    text-decoration: underline; /* Underline on hover */
+}

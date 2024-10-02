@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./Register.css"
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import "./Register.css";
 
-const Register = () => {
+const Register = ({ setIsLoggedIn }) => { // Add setIsLoggedIn as a prop
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate(); // Hook to programmatically navigate
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -17,8 +19,15 @@ const Register = () => {
                 password,
             });
             setMessage(response.data.message);
+            const loginResponse = await axios.post('http://localhost:3000/login', {
+                email,
+                password,
+            });
+            localStorage.setItem('token', loginResponse.data.token); // Save token in local storage
+            setIsLoggedIn(true); // Update login state
+            navigate('/user'); // Redirect to User Dashboard
         } catch (error) {
-            setMessage(error.response.data.message);
+            setMessage(error.response?.data?.message || 'Registration failed');
         }
     };
 

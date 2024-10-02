@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; 
+import { fetchProducts, addProduct, updateProduct, deleteProduct } from '../utils/api'; // Ensure you import addProduct
 import './Dashboard.css';
 
 const UserDashboard = () => {
@@ -10,33 +10,38 @@ const UserDashboard = () => {
     const [products, setProducts] = useState([]);
     const [filter, setFilter] = useState('');
     const [editingProduct, setEditingProduct] = useState(null);
-    const [message, setMessage] = useState(''); 
+    const [message, setMessage] = useState('');
 
-   
     useEffect(() => {
-        const fetchProducts = async () => {
+        const loadProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/products'); 
-                setProducts(response.data);
+                const products = await fetchProducts();
+                setProducts(products);
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
         };
 
-        fetchProducts();
+        loadProducts();
     }, []);
 
-    const addProduct = async () => {
+    const handleAddProduct = async (e) => {
+        e.preventDefault();
         if (!title || !description || !price || !category) {
             setMessage('All fields are required!');
             return;
         }
 
-        const newProduct = { title, description, price: parseFloat(price), category };
+        const newProduct = {
+            title,
+            description,
+            price: parseFloat(price),
+            category,
+        };
 
         try {
-            const response = await axios.post('http://localhost:3000/products', newProduct); 
-            setProducts([...products, response.data]);
+            const addedProduct = await addProduct(newProduct);
+            setProducts((prevProducts) => [...prevProducts, addedProduct]);
             clearInputs();
             setMessage('Product added successfully!');
         } catch (error) {
@@ -45,17 +50,17 @@ const UserDashboard = () => {
         }
     };
 
-    const updateProduct = async () => {
+    const handleUpdateProduct = async () => {
         if (!title || !description || !price || !category || !editingProduct) {
             setMessage('All fields are required!');
             return;
         }
 
-        const updatedProduct = { ...editingProduct, title, description, price: parseFloat(price), category };
+        const updatedProduct = { title, description, price: parseFloat(price), category };
 
         try {
-            const response = await axios.put(`http://localhost:3000/products/${editingProduct.id}`, updatedProduct); 
-            setProducts(products.map(product => (product.id === editingProduct.id ? response.data : product)));
+            const updated = await updateProduct(editingProduct.id, updatedProduct);
+            setProducts((prevProducts) => prevProducts.map(product => product.id === editingProduct.id ? updated : product));
             clearInputs();
             setEditingProduct(null);
             setMessage('Product updated successfully!');
@@ -65,16 +70,17 @@ const UserDashboard = () => {
         }
     };
 
-    const deleteProduct = async (id) => {
+    const handleDeleteProduct = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/products/${id}`); 
-            setProducts(products.filter((product) => product.id !== id));
+            await deleteProduct(parseInt(id)); // Ensure id is an integer
+            setProducts((prevProducts) => prevProducts.filter(product => product.id !== id));
             setMessage('Product deleted successfully!');
         } catch (error) {
             setMessage('Error deleting product!');
             console.error(error);
         }
     };
+    
 
     const clearInputs = () => {
         setTitle('');
@@ -127,9 +133,9 @@ const UserDashboard = () => {
                     onChange={(e) => setCategory(e.target.value)}
                 />
                 {editingProduct ? (
-                    <button onClick={updateProduct}>Update Product</button>
+                    <button onClick={handleUpdateProduct}>Update Product</button>
                 ) : (
-                    <button onClick={addProduct}>Add Product</button>
+                    <button onClick={handleAddProduct}>Add Product</button>
                 )}
                 {editingProduct && <button onClick={() => setEditingProduct(null)}>Cancel</button>}
             </div>
@@ -150,12 +156,12 @@ const UserDashboard = () => {
                         <div>
                             <h3>{product.title}</h3>
                             <p>{product.description}</p>
-                            <p>Price: ${product.price}</p>
+                            <p>Price: ${product.price.toFixed(2)}</p>
                             <p>Category: {product.category}</p>
                         </div>
                         <div className="button-group">
                             <button onClick={() => handleEdit(product)}>Edit</button>
-                            <button onClick={() => deleteProduct(product.id)}>Delete</button>
+                            <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
                         </div>
                     </li>
                 ))}
