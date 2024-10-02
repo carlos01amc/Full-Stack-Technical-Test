@@ -10,7 +10,7 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-const usersFilePath = './users.json'; // Path to your users JSON file
+const usersFilePath = './users.json'; // Path to users JSON file
 
 // Helper function to read users from the JSON file
 const readUsersFromFile = () => {
