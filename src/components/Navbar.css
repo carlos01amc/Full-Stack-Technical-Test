@@ -1,0 +1,26 @@
+/* Navbar.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #45108a; 
+    color: #fff; 
+}
+
+.logo {
+    font-size: 24px; 
+    font-weight: bold; 
+    color: #fff; 
+    text-decoration: none; 
+}
+
+.user-icon {
+    cursor: pointer; 
+}
+
+.link {
+    color: #fff; 
+    text-decoration: none; 
+}
