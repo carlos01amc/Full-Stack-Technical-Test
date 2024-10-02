@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import axios for API requests
+import axios from 'axios'; 
 import './Dashboard.css';
 
 const UserDashboard = () => {
@@ -9,14 +9,14 @@ const UserDashboard = () => {
     const [category, setCategory] = useState('');
     const [products, setProducts] = useState([]);
     const [filter, setFilter] = useState('');
-    const [editingProduct, setEditingProduct] = useState(null); // For tracking the product being edited
-    const [message, setMessage] = useState(''); // For feedback messages
+    const [editingProduct, setEditingProduct] = useState(null);
+    const [message, setMessage] = useState(''); 
 
-    // Fetch products from backend (you may want to replace with your API URL)
+   
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/products'); // Update to your actual endpoint
+                const response = await axios.get('http://localhost:3000/products'); 
                 setProducts(response.data);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -35,7 +35,7 @@ const UserDashboard = () => {
         const newProduct = { title, description, price: parseFloat(price), category };
 
         try {
-            const response = await axios.post('http://localhost:3000/products', newProduct); // Update to your actual endpoint
+            const response = await axios.post('http://localhost:3000/products', newProduct); 
             setProducts([...products, response.data]);
             clearInputs();
             setMessage('Product added successfully!');
@@ -54,7 +54,7 @@ const UserDashboard = () => {
         const updatedProduct = { ...editingProduct, title, description, price: parseFloat(price), category };
 
         try {
-            const response = await axios.put(`http://localhost:3000/products/${editingProduct.id}`, updatedProduct); // Update to your actual endpoint
+            const response = await axios.put(`http://localhost:3000/products/${editingProduct.id}`, updatedProduct); 
             setProducts(products.map(product => (product.id === editingProduct.id ? response.data : product)));
             clearInputs();
             setEditingProduct(null);
@@ -67,7 +67,7 @@ const UserDashboard = () => {
 
     const deleteProduct = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/products/${id}`); // Update to your actual endpoint
+            await axios.delete(`http://localhost:3000/products/${id}`); 
             setProducts(products.filter((product) => product.id !== id));
             setMessage('Product deleted successfully!');
         } catch (error) {

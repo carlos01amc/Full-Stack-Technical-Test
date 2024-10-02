@@ -16,7 +16,7 @@ const Login = ({ setIsLoggedIn }) => {
                 email,
                 password,
             });
-            localStorage.setItem('token', response.data.token); // Save token in local storage
+            localStorage.setItem('token', response.data.token); 
             setIsLoggedIn(true);
             navigate('/user');
         } catch (error) {

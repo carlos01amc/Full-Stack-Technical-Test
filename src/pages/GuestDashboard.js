@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { fetchProducts } from '../utils/api.js'; // 
+import { fetchProducts } from '../utils/api.js';  
 import './Dashboard.css';
 
 const GuestDashboard = () => {
-    const [products, setProducts] = useState([]); // State to store products
-    const [loading, setLoading] = useState(true); // State to track loading status
-    const [error, setError] = useState(null); // State to handle errors
+    const [products, setProducts] = useState([]); 
+    const [loading, setLoading] = useState(true); 
+    const [error, setError] = useState(null); 
 
     useEffect(() => {
         const getProducts = async () => {
             try {
-                const fetchedProducts = await fetchProducts(); // Fetch products from the API
-                setProducts(fetchedProducts); // Set products to state
+                const fetchedProducts = await fetchProducts(); 
+                setProducts(fetchedProducts); 
             } catch (err) {
-                setError('Failed to fetch products'); // Set error if fetching fails
+                setError('Failed to fetch products'); 
                 console.error(err);
             } finally {
-                setLoading(false); // Set loading to false
+                setLoading(false); 
             }
         };
 
@@ -27,9 +27,9 @@ const GuestDashboard = () => {
         <div className="dashboard-container">
             <h1>Product Catalog</h1>
             <p>Check out our available products:</p>
-            {loading ? ( // Display loading message while fetching
+            {loading ? ( 
                 <p>Loading products...</p>
-            ) : error ? ( // Display error message if there's an error
+            ) : error ? ( 
                 <p>{error}</p>
             ) : (
                 <div className="product-list">
