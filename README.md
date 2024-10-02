@@ -36,7 +36,7 @@ This project is a user dashboard application with authentication (login, registr
 3. Start the frontend
    
    ```bash
-   node start
+   npm start
 4. The frontend will run on http://localhost:3001
 
 ## Routes
