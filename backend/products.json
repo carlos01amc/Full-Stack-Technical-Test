@@ -1,1 +1,72 @@
-[]
+[
+    {
+        "id": 1,
+        "title": "Wireless Headphones",
+        "description": "High-quality wireless headphones with noise cancellation.",
+        "price": 89.99,
+        "category": "Electronics"
+    },
+    {
+        "id": 2,
+        "title": "Bluetooth Speaker",
+        "description": "Portable Bluetooth speaker with amazing sound quality.",
+        "price": 49.99,
+        "category": "Electronics"
+    },
+    {
+        "id": 3,
+        "title": "Smartwatch",
+        "description": "Stylish smartwatch with fitness tracking features.",
+        "price": 199.99,
+        "category": "Wearables"
+    },
+    {
+        "id": 4,
+        "title": "4K Ultra HD TV",
+        "description": "Experience stunning picture quality with this 4K Ultra HD TV.",
+        "price": 799.99,
+        "category": "Home Appliances"
+    },
+    {
+        "id": 5,
+        "title": "Gaming Laptop",
+        "description": "Powerful gaming laptop with high-performance graphics.",
+        "price": 1499.99,
+        "category": "Computers"
+    },
+    {
+        "id": 6,
+        "title": "Office Chair",
+        "description": "Ergonomic office chair with adjustable height and lumbar support.",
+        "price": 129.99,
+        "category": "Furniture"
+    },
+    {
+        "id": 7,
+        "title": "Kitchen Blender",
+        "description": "Versatile kitchen blender for smoothies, soups, and more.",
+        "price": 49.99,
+        "category": "Kitchen Appliances"
+    },
+    {
+        "id": 8,
+        "title": "Wireless Mouse",
+        "description": "Ergonomic wireless mouse for comfort and precision.",
+        "price": 29.99,
+        "category": "Accessories"
+    },
+    {
+        "id": 9,
+        "title": "Leather Backpack",
+        "description": "Stylish leather backpack for daily use and travel.",
+        "price": 79.99,
+        "category": "Bags"
+    },
+    {
+        "id": 10,
+        "title": "LED Desk Lamp",
+        "description": "Adjustable LED desk lamp with touch controls.",
+        "price": 39.99,
+        "category": "Home Decor"
+    }
+]
