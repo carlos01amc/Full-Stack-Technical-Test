@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // Import axios for API requests
 import './Dashboard.css';
 
 const UserDashboard = () => {
@@ -8,13 +9,71 @@ const UserDashboard = () => {
     const [category, setCategory] = useState('');
     const [products, setProducts] = useState([]);
     const [filter, setFilter] = useState('');
+    const [editingProduct, setEditingProduct] = useState(null); // For tracking the product being edited
+    const [message, setMessage] = useState(''); // For feedback messages
 
-    const addProduct = () => {
-        if (!title || !description || !price || !category) return;
+    // Fetch products from backend (you may want to replace with your API URL)
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/products'); // Update to your actual endpoint
+                setProducts(response.data);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
 
-        const newProduct = { title, description, price, category, id: Date.now() };
-        setProducts([...products, newProduct]);
-        clearInputs();
+        fetchProducts();
+    }, []);
+
+    const addProduct = async () => {
+        if (!title || !description || !price || !category) {
+            setMessage('All fields are required!');
+            return;
+        }
+
+        const newProduct = { title, description, price: parseFloat(price), category };
+
+        try {
+            const response = await axios.post('http://localhost:3000/products', newProduct); // Update to your actual endpoint
+            setProducts([...products, response.data]);
+            clearInputs();
+            setMessage('Product added successfully!');
+        } catch (error) {
+            setMessage('Error adding product!');
+            console.error(error);
+        }
+    };
+
+    const updateProduct = async () => {
+        if (!title || !description || !price || !category || !editingProduct) {
+            setMessage('All fields are required!');
+            return;
+        }
+
+        const updatedProduct = { ...editingProduct, title, description, price: parseFloat(price), category };
+
+        try {
+            const response = await axios.put(`http://localhost:3000/products/${editingProduct.id}`, updatedProduct); // Update to your actual endpoint
+            setProducts(products.map(product => (product.id === editingProduct.id ? response.data : product)));
+            clearInputs();
+            setEditingProduct(null);
+            setMessage('Product updated successfully!');
+        } catch (error) {
+            setMessage('Error updating product!');
+            console.error(error);
+        }
+    };
+
+    const deleteProduct = async (id) => {
+        try {
+            await axios.delete(`http://localhost:3000/products/${id}`); // Update to your actual endpoint
+            setProducts(products.filter((product) => product.id !== id));
+            setMessage('Product deleted successfully!');
+        } catch (error) {
+            setMessage('Error deleting product!');
+            console.error(error);
+        }
     };
 
     const clearInputs = () => {
@@ -24,8 +83,12 @@ const UserDashboard = () => {
         setCategory('');
     };
 
-    const deleteProduct = (id) => {
-        setProducts(products.filter((product) => product.id !== id));
+    const handleEdit = (product) => {
+        setTitle(product.title);
+        setDescription(product.description);
+        setPrice(product.price);
+        setCategory(product.category);
+        setEditingProduct(product);
     };
 
     const filteredProducts = products.filter(
@@ -37,6 +100,7 @@ const UserDashboard = () => {
     return (
         <div className="dashboard-container">
             <h1>Product Dashboard</h1>
+            {message && <p className="feedback-message">{message}</p>}
             <div className="form-container">
                 <input
                     type="text"
@@ -62,7 +126,12 @@ const UserDashboard = () => {
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                 />
-                <button onClick={addProduct}>Add Product</button>
+                {editingProduct ? (
+                    <button onClick={updateProduct}>Update Product</button>
+                ) : (
+                    <button onClick={addProduct}>Add Product</button>
+                )}
+                {editingProduct && <button onClick={() => setEditingProduct(null)}>Cancel</button>}
             </div>
 
             <div className="filter-container">
@@ -85,6 +154,7 @@ const UserDashboard = () => {
                             <p>Category: {product.category}</p>
                         </div>
                         <div className="button-group">
+                            <button onClick={() => handleEdit(product)}>Edit</button>
                             <button onClick={() => deleteProduct(product.id)}>Delete</button>
                         </div>
                     </li>

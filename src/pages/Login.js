@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 import "./Login.css"
 
 const Login = ({ setIsLoggedIn }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // Hook to programmatically navigate
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        // Validate user credentials here
-
-        if (email && password) {
-            setIsLoggedIn(true); // Update login state
-            navigate('/user'); // Redirect to UserDashboard
+        try {
+            const response = await axios.post('http://localhost:3000/login', {
+                email,
+                password,
+            });
+            localStorage.setItem('token', response.data.token); // Save token in local storage
+            setIsLoggedIn(true);
+            navigate('/user');
+        } catch (error) {
+            setMessage(error.response.data.message);
         }
     };
 
@@ -38,9 +44,9 @@ const Login = ({ setIsLoggedIn }) => {
                 />
                 <button type="submit">Login</button>
                 <Link to="/register">
-                    <button type="submit" >Register</button>
+                    <button type="button">Register</button>
                 </Link>
-
+                {message && <p>{message}</p>}
             </form>
         </div>
     );
