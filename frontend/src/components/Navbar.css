@@ -2,14 +2,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #45108a; 
-    color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    padding: 15px 45px;
+    background-color: transparent; 
+    box-shadow: none; 
+    border: none; 
+    color: #fff; 
 }
 
 .logo {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     color: #fff;
     text-decoration: none;
@@ -26,29 +27,26 @@
 
 .logout-button {
     margin-left: 20px;
-    padding: 8px 16px;
+    padding: 8px 16px; 
     color: #f1f1f1; 
-    background-color: transparent;
-    border: 1px solid #ffffff;
-    border-radius: 4px; /* Rounded edges */
-    text-decoration: none;
+    background-color: rgb(69, 118, 138);
+    border-radius: 6px; 
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s; 
 }
 
 .logout-button:hover {
     background-color: #ffffff; 
-    color: #45108a;
-    text-decoration: none;
+    color: #00b7ff; 
+    text-decoration: none; 
 }
 
 .dashboard-button {
     margin-left: 20px;
     padding: 8px 16px;
     color: #fff; 
-    background-color: transparent;
-    border: 1px solid #fff; 
-    border-radius: 4px;
+    background-color: rgb(69, 118, 138);
+    border-radius: 6px;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
@@ -56,6 +54,6 @@
 
 .dashboard-button:hover {
     background-color: #fff; 
-    color: #45108a; 
+    color: #00b7ff; 
     text-decoration: none;
 }

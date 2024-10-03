@@ -1,0 +1,56 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; 
+}
+
+body {
+    background: url('./images/background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: cover; 
+    min-height: 100vh; 
+    font-family: Arial, sans-serif;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;    
+    padding: 12px;
+    border: 1px solid #ccc; 
+    border-radius: 6px;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+button {
+    width: 100%; 
+    padding: 12px;
+    background-color: #00b7ff; 
+    color:white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer; 
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background: #00b7ff;  
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
